@@ -11,12 +11,13 @@ export default {
   },
   methods: {
     async onRequest (pagination, filter) {
-      if (filter.customer) {
-        await this.getRawData(pagination, filter)
-        return
-      } else {
-        console.warn('Нет данных по клиенту')
-        this.data = []
+      if (this.$route.path === '/bookings') {
+        if (filter.customer) {
+          await this.getRawData(pagination, filter)
+          return
+        } else {
+          this.data = []
+        }
       }
       if (
         this.$route.path === '/bookings' ||
