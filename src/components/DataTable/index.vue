@@ -30,11 +30,6 @@
           @toggleControls="toggleControlsRow"
           @toggleDialogRow="toggleDialogRow"
         )
-          slot(
-            name="row-controls"
-            :row="props.row"
-            :toggleDialogRow="toggleDialogRow"
-          )
 </template>
 
 <script>

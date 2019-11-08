@@ -21,6 +21,7 @@ export default {
       Object.assign(this.pagination, pagination, { rowsNumber: total })
     },
     setPagination (prop, value) {
+      console.log(prop, value, this)
       const { pagination, filter } = this
       if (pagination[prop] === value) return
 
