@@ -62,39 +62,42 @@ export default {
       this.saveToSession()
     },
     async filterDefault (page) {
-      let filter = {}
       this.readFromSession()
-      this.values.bookings = {}
-      this.saveToSession()
-      let { studio } = this.getValues(page)
-      const { items } = await studios.getAll().then(resp => resp.data)
-      if (!studio) {
-        let [{ rooms }] = items.filter(item => item.id === items[0].id)
-        rooms = rooms.map(item => item.id)
-        filter = Object.assign({}, {
-          studio: items[0].id,
-          rooms: rooms
-        })
-        this.setValue(page, 'studio', filter.studio)
-        this.setValue(page, 'rooms', filter.rooms)
-        if (page === 'bookings') {
-          this.setValue(page, 'statuses', [0, 1, 2, 3, 4])
+      if (!this.values[page].studio) {
+        let filter = {}
+        this.readFromSession()
+        this.values.bookings = {}
+        this.saveToSession()
+        let { studio } = this.getValues(page)
+        const { items } = await studios.getAll().then(resp => resp.data)
+        if (!studio) {
+          let [{ rooms }] = items.filter(item => item.id === items[0].id)
+          rooms = rooms.map(item => item.id)
+          filter = Object.assign({}, {
+            studio: items[0].id,
+            rooms: rooms
+          })
+          this.setValue(page, 'studio', filter.studio)
+          this.setValue(page, 'rooms', filter.rooms)
+          if (page === 'bookings') {
+            this.setValue(page, 'statuses', [0, 1, 2, 3, 4])
+          }
         }
       }
     },
     async reset (page) {
-      this.readFromSession()
-      this.values.bookings = {}
-      this.saveToSession()
       const { values } = this
       const { items } = await studios.getAll().then(resp => resp.data)
       let [{ rooms }] = items.filter(item => item.id === items[0].id)
       rooms = rooms.map(item => item.id)
       this.values = {
         ...values,
-        [page]: { studio: items[0].id, rooms: rooms, statuses: [0, 1, 2, 3, 4] }
+        [page]: { studio: items[0].id, rooms: rooms }
       }
       this.saveToSession()
+      if (page === 'bookings') {
+        this.setValue(page, 'statuses', [0, 1, 2, 3, 4])
+      }
     }
   }
 }

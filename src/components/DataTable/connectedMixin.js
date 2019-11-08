@@ -1,4 +1,3 @@
-import studios from '../../api/studios'
 export default {
   props: {
     loadData: Function,
@@ -11,28 +10,6 @@ export default {
   },
   methods: {
     async onRequest (pagination, filter) {
-      if (this.$route.path === '/bookings') {
-        if (filter.customer) {
-          await this.getRawData(pagination, filter)
-          return
-        } else {
-          this.data = []
-        }
-      }
-      if (
-        this.$route.path === '/bookings' ||
-        this.$route.path === '/refunds') {
-        if (!filter.studio) {
-          const { items } = await studios.getAll().then(resp => resp.data)
-          filter = Object.assign({}, { studio: items[0].id })
-        } else if (!filter.rooms.length) {
-          console.warn('В локации нет залов')
-          this.data = []
-        }
-      }
-      await this.getRawData(pagination, filter)
-    },
-    async getRawData (pagination, filter) {
       const { page, rowsPerPage } = pagination
       let { items, total, data } = await this.loadData({ number: page, size: rowsPerPage }, filter)
       if (data) {
