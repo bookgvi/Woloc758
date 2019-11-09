@@ -11,15 +11,15 @@ export default {
         color: 'grey'
       }
     }, [
-      h('ul', 'Some element'),
-      h('ul', this.drawAllRoutes(h, routes))
+      h('div', 'Some element'),
+      h('div', this.drawAllRoutes(h, routes))
     ])
   },
   methods: {
     drawAllRoutes (h, obj) {
       return obj.map(elem => h('li', [(() => {
         if (elem.children) {
-          return h('ul', [
+          return h('div', [
             h('div', {
               style: {
                 paddingTop: '10px',
