@@ -30,7 +30,7 @@ export default {
                 click: this.showHideSubMenu
               }
             }, elem.path),
-            h('div', {
+            h('ul', {
               attrs: {
                 id: elem.path
               },
