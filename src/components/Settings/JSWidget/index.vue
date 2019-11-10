@@ -28,7 +28,7 @@ export default {
                   cursor: 'pointer'
                 },
                 attrs: {
-                  label: elem.path === '/' ? 'Root' : elem.path,
+                  label: this.tagData(elem.path, '/', 'Root'),
                   noCaps: true,
                   flat: true
                 },
@@ -38,7 +38,7 @@ export default {
               }),
               h('span', {
                 attrs: {
-                  id: elem.path === '/' ? 'Root' : elem.path
+                  id: this.tagData(elem.path, '/', 'Root'),
                 },
                 style: {
                   display: 'none'
@@ -63,6 +63,9 @@ export default {
       } else {
         targetElem.style.display = 'none'
       }
+    },
+    tagData (value, orig, newValue) {
+      return value === orig ? newValue : value
     }
   }
 }
