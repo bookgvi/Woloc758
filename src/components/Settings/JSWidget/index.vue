@@ -5,7 +5,6 @@ export default {
   },
   render (h) {
     const routes = this.$router.options.routes.filter(item => item.path !== '*')
-    console.log(routes)
     return h('div', {
       style: {
         marginTop: '100px',
