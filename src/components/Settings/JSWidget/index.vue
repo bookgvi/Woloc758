@@ -5,6 +5,7 @@ export default {
   },
   render (h) {
     const routes = this.$router.options.routes.filter(item => item.path !== '*')
+    console.log(routes)
     return h('div', {
       style: {
         marginTop: '100px',
@@ -17,44 +18,51 @@ export default {
   },
   methods: {
     drawAllRoutes (h, obj) {
-      return obj.map(elem => h('li', [(() => {
-        if (elem.children) {
-          return h('div', [
-            h('q-btn', {
-              class: {
-                'bg-primary': true
-              },
+      return obj.map(elem => {
+        if (!elem.path) return
+        return h('li', [(() => {
+          if (elem.children) {
+            return h('span', [
+              h('q-btn', {
+                class: {
+                  'q-mt-sm': true
+                },
+                style: {
+                  paddingTop: '10px',
+                  cursor: 'pointer'
+                },
+                attrs: {
+                  label: elem.path,
+                  noCaps: true,
+                  flat: true
+                },
+                on: {
+                  click: this.showHideSubMenu
+                }
+              }),
+              h('ul', {
+                class: {
+                  'q-ma-none': true,
+                  'q-pt-sm': true
+                },
+                attrs: {
+                  id: elem.path
+                },
+                style: {
+                  display: 'none'
+                }
+              }, this.drawAllRoutes(h, elem.children))
+            ])
+          } else if (elem.path !== '') {
+            return h('div', {
               style: {
-                paddingTop: '10px',
-                color: 'white',
-                cursor: 'pointer'
+                width: '100px'
               },
-              attrs: {
-                label: elem.path,
-                noCaps: true
-              },
-              on: {
-                click: this.showHideSubMenu
-              }
-            }),
-            h('ul', {
-              attrs: {
-                id: elem.path
-              },
-              style: {
-                display: 'none'
-              }
-            }, this.drawAllRoutes(h, elem.children))
-          ])
-        } else if (elem.path !== '') {
-          return h('div', {
-            style: {
-              width: '100px'
-            },
-          }, elem.path)
-        }
-      })()]
-      ))
+            }, elem.path)
+          }
+        })()]
+        )
+      })
     },
     showHideSubMenu (e) {
       const targetElem = document.getElementById(e.target.innerText)
