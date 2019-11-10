@@ -24,7 +24,6 @@ export default {
             return [
               h('q-btn', {
                 class: {
-                  'q-mt-sm': true,
                   'q-py-none': true,
                   'text-primary': true
                 },
@@ -41,10 +40,6 @@ export default {
                 }
               }),
               h('span', {
-                class: {
-                  'q-ma-none': true,
-                  'q-pt-sm': true
-                },
                 attrs: {
                   id: elem.path
                 },
@@ -56,7 +51,7 @@ export default {
           } else if (elem.path !== '') {
             return h('span', {
               style: {
-                width: '100px'
+                width: '100%'
               },
             }, elem.path)
           }
