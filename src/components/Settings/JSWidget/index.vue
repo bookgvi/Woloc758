@@ -1,10 +1,7 @@
 <script>
 export default {
-  data () {
-    return {}
-  },
   render (h) {
-    const routes = this.$router.options.routes.filter(item => item.path !== '*')
+    const routes = this.$router.options.routes.filter(item => item.path !== '/login' && item.path !== '*')
     return h('div', {
       style: {
         marginTop: '100px',
@@ -31,7 +28,7 @@ export default {
                   cursor: 'pointer'
                 },
                 attrs: {
-                  label: elem.path,
+                  label: elem.path === '/' ? 'Root' : elem.path,
                   noCaps: true,
                   flat: true
                 },
@@ -41,7 +38,7 @@ export default {
               }),
               h('span', {
                 attrs: {
-                  id: elem.path
+                  id: elem.path === '/' ? 'Root' : elem.path
                 },
                 style: {
                   display: 'none'
