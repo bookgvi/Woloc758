@@ -22,10 +22,12 @@ export default {
         if (!elem.path) return
         return h('li', [(() => {
           if (elem.children) {
-            return h('span', [
+            return [
               h('q-btn', {
                 class: {
-                  'q-mt-sm': true
+                  'q-mt-sm': true,
+                  'q-py-none': true,
+                  'q-pl-none': true
                 },
                 style: {
                   paddingTop: '10px',
@@ -40,7 +42,7 @@ export default {
                   click: this.showHideSubMenu
                 }
               }),
-              h('ul', {
+              h('span', {
                 class: {
                   'q-ma-none': true,
                   'q-pt-sm': true
@@ -52,9 +54,9 @@ export default {
                   display: 'none'
                 }
               }, this.drawAllRoutes(h, elem.children))
-            ])
+            ]
           } else if (elem.path !== '') {
-            return h('div', {
+            return h('span', {
               style: {
                 width: '100px'
               },
