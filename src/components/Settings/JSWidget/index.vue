@@ -26,10 +26,9 @@ export default {
                 class: {
                   'q-mt-sm': true,
                   'q-py-none': true,
-                  'q-pl-none': true
+                  'text-primary': true
                 },
                 style: {
-                  paddingTop: '10px',
                   cursor: 'pointer'
                 },
                 attrs: {
